@@ -51,6 +51,7 @@ else:
                 st.session_state.user_id = user_id
                 st.session_state.group = group
                 # st.success(f"ログイン成功: {user_id}")
+                st.experimental_rerun()
             else:
                 st.write("無効なIDです。もう一度お試しください。")
 
