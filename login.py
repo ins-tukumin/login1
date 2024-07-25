@@ -2,8 +2,8 @@ import streamlit as st
 
 # 各グループに対応するURLを定義します
 group_urls = {
-    "group1": "https://www.yahoo.co.jp/",
-    "group2": "https://www.microsoft.com/ja-jp/edge?form=MA13FJ",
+    "group1": "https://ragepre.streamlit.app/",
+    "group2": "https://llmrel.streamlit.app/",
     "group3": "https://www.google.com/maps"
 }
 
@@ -24,21 +24,33 @@ def load_participants(file_path):
 # Streamlitアプリケーションのレイアウト
 st.title("ログインページ")
 
+# セッション状態を初期化
+if 'logged_in' not in st.session_state:
+    st.session_state.logged_in = False
+    st.session_state.user_id = ""
+    st.session_state.group = ""
+
 # 参加者のリストを読み込む
 participants = load_participants('participants.txt')
 
-user_id = st.text_input("IDを入力してください")
-
-if user_id:
-    group = participants.get(user_id)
-    if group:
-        group_url = group_urls.get(group)
-        if group_url:
-            st.markdown(f'こちらのURLをクリックしてください: <a href="{group_url}" target="_blank">リンク</a>', unsafe_allow_html=True)
-        else:
-            st.write("対応するグループURLが見つかりません。")
+if st.session_state.logged_in:
+    st.success(f"ログイン済み: {st.session_state.user_id}")
+    group_url = group_urls.get(st.session_state.group)
+    if group_url:
+        group_url_with_id = f"{group_url}?user_id={st.session_state.user_id}"
+        st.markdown(f'こちらのURLをクリックしてください: <a href="{group_url_with_id}" target="_blank">リンク</a>', unsafe_allow_html=True)
     else:
-        st.write("無効なIDです。もう一度お試しください。")
+        st.write("対応するグループURLが見つかりません。")
+else:
+    user_id = st.text_input("IDを半角で入力してください")
+    if st.button("ログイン"):
+        if user_id:
+            group = participants.get(user_id)
+            if group:
+                st.session_state.logged_in = True
+                st.session_state.user_id = user_id
+                st.session_state.group = group
+                st.success(f"ログイン成功: {user_id}")
+            else:
+                st.write("無効なIDです。もう一度お試しください。")
 
-# アプリケーションを実行するには、以下のコマンドを使用します
-# streamlit run app.py
