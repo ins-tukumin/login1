@@ -9,9 +9,11 @@ group_urls = {
     "groupe": "https://llmrel.streamlit.app/",
     "groupf": "https://llmrel.streamlit.app/",
     "groupg": "https://ragepre.streamlit.app/",
-    "grouph": "https://ragepre.streamlit.app/",
-    "xxxx": "https://openai.com/chatgpt/"
+    "grouph": "https://ragepre.streamlit.app/"
 }
+
+# 特別なURLを定義します
+special_url = "https://openai.com/chatgpt/"
 
 # participants.txtファイルからIDとグループを読み込む関数
 def load_participants(file_path):
@@ -38,7 +40,11 @@ participants = load_participants('group_assignment.txt')
 user_id = st.text_input("学籍番号を半角で入力してください")
 if st.button("ログイン"):
     if user_id:
-        if user_id in participants:
+        if user_id == "xxxx":
+            group_url_with_id = f"{special_url}?user_id={user_id}"
+            st.success(f"ログイン成功: {user_id}")
+            st.markdown(f'こちらのURLをクリックしてください: <a href="{group_url_with_id}" target="_blank">リンク</a>', unsafe_allow_html=True)
+        elif user_id in participants:
             group = participants[user_id]
             if group in group_urls:
                 group_url = group_urls[group]
