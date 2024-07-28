@@ -1,4 +1,5 @@
 import streamlit as st
+import random
 
 # 各グループに対応するURLを定義します
 group_urls = {
@@ -41,6 +42,8 @@ user_id = st.text_input("学籍番号を半角で入力してください")
 if st.button("ログイン"):
     if user_id:
         if user_id == "xxxx":
+            random_number = random.randint(1000000000, 9999999999)
+            user_id = f"xxxx{random_number}"
             group="groupx"
             group_url_with_id = f"{special_url}?user_id={user_id}&group={group}"
             st.success(f"ログイン成功: {user_id}")
