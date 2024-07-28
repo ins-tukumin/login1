@@ -41,7 +41,8 @@ user_id = st.text_input("学籍番号を半角で入力してください")
 if st.button("ログイン"):
     if user_id:
         if user_id == "xxxx":
-            group_url_with_id = f"{special_url}?user_id={user_id}"
+            group="groupx"
+            group_url_with_id = f"{special_url}?user_id={user_id}&group={group}"
             st.success(f"ログイン成功: {user_id}")
             st.markdown(f'こちらのURLをクリックしてください: <a href="{group_url_with_id}" target="_blank">リンク</a>', unsafe_allow_html=True)
         elif user_id in participants:
