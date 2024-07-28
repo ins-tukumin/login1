@@ -8,8 +8,8 @@ group_urls = {
     "groupd": "https://ragrel.streamlit.app/",
     "groupe": "https://llmrel.streamlit.app/",
     "groupf": "https://llmrel.streamlit.app/",
-    "groupg": "https://ragepre.streamlit.app/",
-    "grouph": "https://ragepre.streamlit.app/"
+    "groupg": "https://rag-repl.streamlit.app/",
+    "grouph": "https://rag-repl.streamlit.app/"
 }
 
 # 特別なURLを定義します
