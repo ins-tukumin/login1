@@ -2,9 +2,15 @@ import streamlit as st
 
 # 各グループに対応するURLを定義します
 group_urls = {
-    "group1": "https://ragepre.streamlit.app/",
-    "group2": "https://llmrel.streamlit.app/",
-    "group3": "https://www.google.com/maps"
+    "groupa": "https://llmrel.streamlit.app/",
+    "groupb": "https://llmrel.streamlit.app/",
+    "groupc": "https://ragrel.streamlit.app/",
+    "groupd": "https://ragrel.streamlit.app/",
+    "groupe": "https://llmrel.streamlit.app/",
+    "groupf": "https://llmrel.streamlit.app/",
+    "groupg": "https://ragepre.streamlit.app/",
+    "grouph": "https://ragepre.streamlit.app/",
+    "xxxx": "https://openai.com/chatgpt/"
 }
 
 # participants.txtファイルからIDとグループを読み込む関数
@@ -37,18 +43,18 @@ if 'logged_in' not in st.session_state:
     st.session_state.group = ""
 
 # 参加者のリストを読み込む
-participants = load_participants('participants.txt')
+participants = load_participants('group_assignment.txt')
 
 if st.session_state.logged_in:
     st.success(f"ログイン済み: {st.session_state.user_id}")
     group_url = group_urls.get(st.session_state.group)
     if group_url:
-        group_url_with_id = f"{group_url}?user_id={st.session_state.user_id}"
+        group_url_with_id = f"{group_url}?user_id={st.session_state.user_id}&group={st.session_state.group}"
         st.markdown(f'こちらのURLをクリックしてください: <a href="{group_url_with_id}" target="_blank">リンク</a>', unsafe_allow_html=True)
     else:
         st.write("対応するグループURLが見つかりません。")
 else:
-    user_id = st.text_input("IDを半角で入力してください")
+    user_id = st.text_input("学籍番号を半角で入力してください")
     if st.button("ログイン"):
         if user_id:
             group = participants.get(user_id)
