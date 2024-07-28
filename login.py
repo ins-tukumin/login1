@@ -26,26 +26,28 @@ def load_participants(file_path):
     except FileNotFoundError:
         pass  # ファイルが見つからない場合でもエラーを表示しない
 
-    # リストにないIDには "xxxx" を割り当てる
-    for user_id, group in participants.items():
-        if not group:
-            participants[user_id] = "xxxx"
-    
     return participants
-    
+
 # Streamlitアプリケーションのレイアウト
 st.title("ログインページ")
 
 # 参加者のリストを読み込む
 participants = load_participants('group_assignment.txt')
 
+# ユーザー入力を受け取る
 user_id = st.text_input("学籍番号を半角で入力してください")
 if st.button("ログイン"):
     if user_id:
-        group = participants.get(user_id, "xxxx")
-        group_url = group_urls.get(group, group_urls["xxxx"])
-        group_url_with_id = f"{group_url}?user_id={user_id}&group={group}"
-        #st.success(f"ログイン成功: {user_id}")
-        st.markdown(f'こちらのURLをクリックしてください: <a href="{group_url_with_id}" target="_blank">リンク</a>', unsafe_allow_html=True)
+        if user_id in participants:
+            group = participants[user_id]
+            if group in group_urls:
+                group_url = group_urls[group]
+                group_url_with_id = f"{group_url}?user_id={user_id}&group={group}"
+                st.success(f"ログイン成功: {user_id}")
+                st.markdown(f'こちらのURLをクリックしてください: <a href="{group_url_with_id}" target="_blank">リンク</a>', unsafe_allow_html=True)
+            else:
+                st.error("対応するグループURLが見つかりません。")
+        else:
+            st.error("無効なIDです。もう一度お試しください。")
     else:
-        st.write("学籍番号を入力してください。")
+        st.error("学籍番号を入力してください。")
