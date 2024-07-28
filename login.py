@@ -18,9 +18,15 @@ def load_participants(file_path):
                     user_id, group = line.split(',')
                     participants[user_id] = group
     except FileNotFoundError:
-        st.error("参加者リストファイルが見つかりません。")
-    return participants
+        pass  # ファイルが見つからない場合でもエラーを表示しない
 
+    # リストにないIDには "xxxx" を割り当てる
+    for user_id in participants.keys():
+        if participants[user_id] == "":
+            participants[user_id] = "xxxx"
+    
+    return participants
+    
 # Streamlitアプリケーションのレイアウト
 st.title("ログインページ")
 
