@@ -13,7 +13,7 @@ group_urls = {
 }
 
 # 特別なURLを定義します
-special_url = "https://openai.com/chatgpt/"
+special_url = "https://llmcou.streamlit.app/"
 
 # participants.txtファイルからIDとグループを読み込む関数
 def load_participants(file_path):
