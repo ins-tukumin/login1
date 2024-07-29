@@ -38,15 +38,6 @@ st.title("ログインページ")
 participants = load_participants('group_assignment.txt')
 
 # ユーザー入力を受け取る
-hide_text_area_message = """
-    <style>
-    .css-1emtvxk {
-        display: none;
-    }
-    </style>
-"""
-
-st.markdown(hide_text_area_message, unsafe_allow_html=True)
 user_id = st.text_input("学籍番号を半角で入力してください")
 if st.button("ログイン"):
     if user_id:
